@@ -8,11 +8,12 @@ public class playercontroller : MonoBehaviour
 {
     private const bool V = true;
     public float speed = 0;
-    public TextMeshProUGUI CountText;
-    public GameObject winTextObject;
     public Vector3 jump;
     public float jumpForce = 10.0f;
     public bool isGrounded;
+
+    public GameObject[] shells;
+    //needs an array to store projectiles
 
 
     private Rigidbody rb;
@@ -26,15 +27,10 @@ public class playercontroller : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        count = 0;
 
-        SetCountText();
-
-        winTextObject.SetActive(false);
-
-        rb = GetComponent<Rigidbody>();
         jump = new Vector3(0.0f, 10.0f, 0.0f);
 
+        //need to initialize shells
     }
 
     void OnMove(InputValue movementValue)
@@ -46,15 +42,6 @@ public class playercontroller : MonoBehaviour
 
     }
 
-    void SetCountText()
-    {
-        CountText.text = "Count: " + count.ToString();
-        if(count >= 8)
-        {
-            winTextObject.SetActive(true);
-        }
-    }
-
     void FixedUpdate()
     {
         Vector3 movement = new Vector3(movementX, 0.0f, movementY);
@@ -64,14 +51,12 @@ public class playercontroller : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("PickUp"))
-        {
-            other.gameObject.SetActive(false);
-            count = count + 1;
-            speed = speed * 1.5f;
-            gameObject.transform.localScale += new Vector3(.5f, .5f, .5f);
 
-            SetCountText();
+        //Can use this for player hit
+        //make a tag for projectile
+        if (other.gameObject.CompareTag("Projectile"))
+        {
+           //put knockback in here
 
         }
     
@@ -90,10 +75,4 @@ public class playercontroller : MonoBehaviour
         rb.AddForce(jump * jumpForce, ForceMode.Impulse);
         isGrounded = false;
     }
-
-    void Update()
-    {
-       
-
-    }
-    }
+}
