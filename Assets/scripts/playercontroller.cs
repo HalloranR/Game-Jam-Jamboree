@@ -12,7 +12,9 @@ public class playercontroller : MonoBehaviour
     public float jumpForce = 10.0f;
     public bool isGrounded;
 
-    public GameObject[] shells;
+    public GameObject[] shellArray;
+    public int shellCount = 4;
+    public float radius = 5;
     //needs an array to store projectiles
 
 
@@ -31,6 +33,25 @@ public class playercontroller : MonoBehaviour
         jump = new Vector3(0.0f, 10.0f, 0.0f);
 
         //need to initialize shells
+        shellArray = new GameObject[shellCount];
+
+        GameObject referenceShell = (GameObject)Instantiate(Resources.Load("Projectile_Prefab"));
+
+        for (int i = 0; i < shellCount; i++)
+        {
+            GameObject shell = (GameObject)Instantiate(referenceShell, transform);
+
+            float posX = transform.position.x;
+            float posY = transform.position.y;
+            float posZ = transform.position.z;
+
+            if (i == 0) { posX += radius; }
+            if (i == 1) { posX -= radius; }
+            if (i == 2) { posY += radius; }
+            if (i == 3) { posY -= radius; }
+
+            shell.transform.position = new Vector3(posX, posY, posZ);
+        }
     }
 
     void OnMove(InputValue movementValue)
@@ -75,4 +96,6 @@ public class playercontroller : MonoBehaviour
         rb.AddForce(jump * jumpForce, ForceMode.Impulse);
         isGrounded = false;
     }
+
+
 }
