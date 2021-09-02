@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class cameracontroller : MonoBehaviour
 {
-
-
+    //Camera Works but IDK how to get it to rotate 
 
     public GameObject player;
     private Vector3 offset;
@@ -14,6 +13,8 @@ public class cameracontroller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+
         offset = transform.position - player.transform.position;
     }
 
