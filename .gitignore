@@ -3,3 +3,7 @@ Roll A Ball/Library/
 Library
 Temp
 Library\Artifact
+Library/ArtifactDB
+Library/SourceAssetDB
+Library\ArtifactDB
+Library\SourceAssetDB
